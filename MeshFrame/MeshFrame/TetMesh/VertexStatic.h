@@ -13,7 +13,7 @@
 #include <list>
 #include <vector>
 #include "../Memory/Array.h"
-#include "vertex.h"
+#include "Vertex.h"
 #include "../Types/TypeDefs.h"
 
 namespace MF
@@ -28,17 +28,17 @@ namespace MF
 			~CVertexStatic(){ }
 
 			void setPVertPos(TVerticesMat<DType>* pVertPos) {
-				mPVertPos = pVertPos;
+				p = pVertPos;
 			}
 
-			TVec3Block<DType> position() {
-				return mPVertPos->block<3, 1>(0, m_id);
+			TVec3<DType> position() {
+				return p->col(m_id).head(3);
 			}
 
 			 
 		protected:
 			
-			TVerticesMat<DType>* mPVertPos = nullptr;
+			TVerticesMat<DType>* p;
 		};
 	};
 };

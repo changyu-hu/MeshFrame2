@@ -9,7 +9,7 @@
 #define  _MESHFRAME_TETMESH_SURFACE_FACE_H_
 
 #include "../../TriMesh/Face.h"
-#include "../halfface.h"
+#include "../HalfFace.h"
 
 namespace MF {
 	namespace TetMesh {

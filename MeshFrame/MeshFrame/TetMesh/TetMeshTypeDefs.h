@@ -1,4 +1,4 @@
-#include "Eigen/core"
+#include "Eigen/Core"
 #include "../Types/TypeDefs.h"
 
 

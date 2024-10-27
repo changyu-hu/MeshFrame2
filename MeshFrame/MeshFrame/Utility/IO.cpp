@@ -5,6 +5,7 @@
 #include <deque>
 #include <list>
 #include <algorithm>
+#include <cstring>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -13,10 +14,16 @@
 #include <fileapi.h>
 #endif
 
+#ifdef __GNUC__
+#include <unistd.h>
+#include <sys/stat.h>
+#endif
+
 using namespace MF;
 
 bool IO::folderExists(const char* folderName)
 {
+#ifdef _WIN32
 	if (_access(folderName, 0) == -1) {
 		//File not found
 		return false;
@@ -29,6 +36,15 @@ bool IO::folderExists(const char* folderName)
 	}
 
 	return true;
+#endif
+
+#ifdef __GNUC__
+	if (access(folderName, 0) == -1) {
+		//File not found
+		return false;
+	}
+	return true;
+#endif
 }
 
 bool IO::copyFile(std::string src, std::string dst)
@@ -71,6 +87,7 @@ bool IO::createFolder(std::string folderName)
 		strPtr[1] = 0;
 	} while (strPtr >= c_str);
 
+	#ifdef _WIN32
 	if (_chdir(c_str)) {
 		return true;
 	}
@@ -82,6 +99,21 @@ bool IO::createFolder(std::string folderName)
 		}
 		_chdir(it->c_str());
 	}
+	#endif
+
+	#ifdef __GNUC__
+	if (chdir(c_str)) {
+		return true;
+	}
+	mode_t mode = 0777;
+	for (std::list<std::string>::iterator it = folderLevels.begin(); it != folderLevels.end(); it++) {
+		if (mkdir(it->c_str(), mode) == 0) {
+			return true;
+		}
+		chdir(it->c_str());
+	}
+
+	#endif
 
 	return false;
 }

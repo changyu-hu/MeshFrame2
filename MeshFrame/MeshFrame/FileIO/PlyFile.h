@@ -46,7 +46,7 @@ Reason: To better fit the meshlib library
 #define USE_PLY_WRAPPER 1
 
 #ifndef WIN32
-#define _strdup _strdup
+#define _strdup strdup
 #endif
 
 #ifdef __cplusplus

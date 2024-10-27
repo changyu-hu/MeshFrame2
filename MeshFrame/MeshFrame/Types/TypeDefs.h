@@ -1,4 +1,3 @@
-#include <Eigen/core>
 #include <Eigen/Dense>
 #include <stdint.h>
 

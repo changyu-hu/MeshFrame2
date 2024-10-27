@@ -3,12 +3,12 @@
 
 #include "TMeshStatic.h"
 #include "VertexStatic.h"
-#include "Tvertex.h"
+#include "TVertex.h"
 #include "Edge.h"
 #include "TEdge.h"
 #include "Face.h"
-#include "Halfface.h"
-#include "Halfedge.h"
+#include "HalfFace.h"
+#include "HalfEdge.h"
 #include "Tet.h"
 
 #include "TIterators.h"

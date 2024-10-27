@@ -12,7 +12,7 @@
 #define _TMESHLIB_TEDGE_H_
 
 #include <list>
-#include "halfedge.h"
+#include "HalfEdge.h"
 namespace MF
 {
 	namespace TetMesh

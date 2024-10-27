@@ -67,11 +67,11 @@ namespace MF
 		* \tparam TetType      tetrahedron class, derived from MF::TetMesh::TetType class
 		*/
 
-		template <typename DType, typename TVertexType, typename VertexType, typename HalfEdgeType, typename TEdgeType, typename EdgeType, typename HalfFaceType, typename FaceType, typename TetType>
+		template <typename Dtype, typename TVertexType, typename VertexType, typename HalfEdgeType, typename TEdgeType, typename EdgeType, typename HalfFaceType, typename FaceType, typename TetType>
 		class CTMeshBase
 		{
 		public:
-			typedef DType     DType;
+			typedef Dtype     DType;
 			typedef TVertexType     TVType;
 			typedef VertexType      VType;
 			typedef HalfEdgeType    HEType;
@@ -1643,7 +1643,7 @@ namespace MF
 		template<typename EigenDerived3x1>
 		inline bool CTMeshBase<DType, TVertexType, VertexType, HalfEdgeType, TEdgeType, EdgeType, HalfFaceType, FaceType, TetType>::PointInTet(TPtr pT, const HalfFaceType& p)
 		{
-			register Vec3 vs4[4] = {
+			Vec3 vs4[4] = {
 				pT->vertex(0)->position(),
 				pT->vertex(1)->position(),
 				pT->vertex(2)->position(),
@@ -1928,4 +1928,4 @@ namespace MF
 
 
 };
-#endif _MESHLIB_BASE_TET_MESH_H
+#endif

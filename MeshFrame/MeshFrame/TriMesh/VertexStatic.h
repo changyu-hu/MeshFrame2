@@ -20,7 +20,7 @@ namespace MF {
 		{
 		public:
 			void setPVertPos(TVerticesMat<DType>* pVertPos) {
-				mPVertPos = pVertPos;
+				pos = pVertPos;
 			}
 
 			TVec3<DType> position() {

@@ -8,7 +8,7 @@
 #ifndef  _MESHFRAME_TETMESH_SURFACE_VERTEX_H_
 #define  _MESHFRAME_TETMESH_SURFACE_VERTEX_H_
 
-#include "../../TriMesh/vertex.h"
+#include "../../TriMesh/Vertex.h"
 #include "../VertexStatic.h"
 
 namespace MF {
@@ -33,9 +33,9 @@ namespace MF {
 			}
 
 
-			TVec3Block<DType> position() {
-				return pTetMeshVertex->position();
-			}
+			// TVec3Block<DType> position() {
+			// 	return pTetMeshVertex->position();
+			// }
 
 		protected:
 			TetMesh::CVertexStatic<DType>* pTetMeshVertex = nullptr;

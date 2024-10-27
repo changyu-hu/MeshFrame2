@@ -731,7 +731,7 @@ namespace MF {
 				MEIterator end() { return MEIterator(_pM, _pM->edges().end()); }
 
 			private:
-				MEIterator(MeshPtr pM, MPIterator<EdgeType>& iter) : _pM(pM), _iter(iter) {};
+				MEIterator(MeshPtr pM, const MPIterator<EdgeType>& iter) : _pM(pM), _iter(iter) {};
 				MPIterator<EdgeType> _iter;
 				MeshPtr _pM;
 			};

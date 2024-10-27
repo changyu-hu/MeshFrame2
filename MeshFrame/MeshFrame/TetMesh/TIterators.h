@@ -172,14 +172,14 @@ namespace MF
 				/*! iterate ++ */
 				T_HFIterator& operator++() { ++m_id; return *this; };
 				/*! ++iterator */
-				T_HFIterator operator++(int) { T_HFIterator tmp(m_pMesh, m_iter); ++m_id; return tmp; };
+				T_HFIterator operator++(int) { T_HFIterator tmp(this->m_pMesh, this->m_iter); ++m_id; return tmp; };
 
 				/*! return the begin and end iterators*/
 				T_HFIterator begin() { return T_HFIterator(m_pTet); };
 				T_HFIterator end() { return T_HFIterator(m_pTet, 4); };
 
 				/*! formal style end() method, return whether the iterator has reached the end of the container*/
-				bool reachEnd() { return m_iter == 4; };
+				bool reachEnd() { return this->m_iter == 4; };
 
 			protected:
 				/*! Private construction function, only used to generate begin, end and tmp iterator*/
@@ -243,7 +243,7 @@ namespace MF
 				/*! iterate ++ */
 				E_TEIterator& operator++() { ++m_iter; return *this; };
 				/*! ++iterator */
-				E_TEIterator operator++(int) { TM_EIterator tmp(m_pMesh, m_iter); ++m_iter; return tmp; };
+				E_TEIterator operator++(int) { TM_EIterator tmp(this->m_pMesh, m_iter); ++m_iter; return tmp; };
 
 				/*! return the begin and end iterators*/
 				E_TEIterator begin() { return E_TEIterator(m_pEdge); };
@@ -286,7 +286,7 @@ namespace MF
 				V_EIterator end() { return V_EIterator(m_pV, TMeshType::VertexEdgeList(m_pV)->end()); };
 
 				/*! formal style end() method, return whether the iterator has reached the end of the container*/
-				bool reachEnd() { return m_iter == pEdges->end(); };
+				bool reachEnd() { return m_iter == m_pV->end(); };
 
 			protected:
 				/*! Private construction function, only used to generate begin, end and tmp iterator*/
@@ -566,7 +566,7 @@ namespace MF
 				/*! ++ iterator */
 				HF_VIterator operator++(int)
 				{
-					HF_VIterator tmp(pHF, pHE);
+					HF_VIterator tmp(m_pHF, m_pHE);
 					m_pHE = TMeshType::HalfEdgeNext(m_pHE);
 					if (m_pHE == TMeshType::HalfFaceHalfEdge(m_pHF))
 					{
@@ -580,7 +580,7 @@ namespace MF
 				HF_VIterator end() { return HF_VIterator(m_pHF, NULL); };
 
 				/*! formal style end() method, return whether the iterator has reached the end of the container*/
-				bool reachEnd() { return m_PHE == NULL; };
+				bool reachEnd() { return m_pHE == NULL; };
 
 			protected:
 				/*! Private construction function, only used to generate begin, end and tmp iterator*/
@@ -621,7 +621,7 @@ namespace MF
 				/*! ++ iterator */
 				HF_HEIterator operator++(int)
 				{
-					HF_HEIterator tmp(pHF, pHE);
+					HF_HEIterator tmp(m_pHF, m_pHE);
 					m_pHE = TMeshType::HalfEdgeNext(m_pHE);
 					if (m_pHE == TMeshType::HalfFaceHalfEdge(m_pHF))
 					{
@@ -635,7 +635,7 @@ namespace MF
 				HF_HEIterator end() { return HF_HEIterator(m_pHF, NULL); };
 
 				/*! formal style end() method, return whether the iterator has reached the end of the container*/
-				bool reachEnd() { return m_PHE == NULL; };
+				bool reachEnd() { return m_pHE == NULL; };
 
 			protected:
 				/*! Private construction function, only used to generate begin, end and tmp iterator*/
@@ -674,7 +674,7 @@ namespace MF
 				/*! ++ iterator */
 				F_VIterator operator++(int)
 				{
-					F_VIterator tmp(m_pF, pHE);
+					F_VIterator tmp(m_pF, m_pHE);
 					m_pHE = TMeshType::HalfEdgeNext(m_pHE);
 					if (m_pHE == TMeshType::alfFaceHalfEdge(m_pHF))
 					{
@@ -688,7 +688,7 @@ namespace MF
 				F_VIterator end() { return F_VIterator(m_pF, NULL); };
 
 				/*! formal style end() method, return whether the iterator has reached the end of the container*/
-				bool reachEnd() { return m_PHE == NULL; };
+				bool reachEnd() { return m_pHE == NULL; };
 			protected:
 				/*! Private construction function, only used to generate begin, end and tmp iterator*/
 				F_VIterator(FPtr pF, HEPtr pHE) : m_pF(pF), m_pHF(TMeshType::FaceLeftHalfFace(pF)), m_pHE(pHE) {};
@@ -742,7 +742,7 @@ namespace MF
 				TV_InHEIterator end() { return TV_InHEIterator(m_pTV, m_pHF, NULL); };
 
 				/*! formal style end() method, return whether the iterator has reached the end of the container*/
-				bool reachEnd() { return m_PHE == NULL; };
+				bool reachEnd() { return m_pHE == NULL; };
 			protected:
 				/*! Private construction function, only used to generate begin, end and tmp iterator*/
 				TV_InHEIterator(TVPtr pTV, HFPtr pHF, HEPtr pHE) : m_pTV(pTV), m_pHE(pHE), m_pHF(pHF) {};
@@ -795,7 +795,7 @@ namespace MF
 				TV_TEIterator end() { return TV_TEIterator(m_pTV, m_pHF, NULL); };
 
 				/*! formal style end() method, return whether the iterator has reached the end of the container*/
-				bool reachEnd() { return m_PHE == NULL; };
+				bool reachEnd() { return m_pHE == NULL; };
 			protected:
 				/*! Private construction function, only used to generate begin, end and tmp iterator*/
 				TV_TEIterator(TVPtr pTV, HFPtr pHF, HEPtr pHE) : m_pTV(pTV), m_pHE(pHE), m_pHF(pHF) {};
@@ -870,7 +870,7 @@ namespace MF
 				/*! iterator++ */
 				T_TVIterator operator++(int unused) {
 					T_TVIterator tmp(m_pT, m_ID);
-					++m_iter;
+					++(this->m_iter);
 					return tmp;
 				};
 
@@ -906,7 +906,7 @@ namespace MF
 				/*! iterator++ */
 				T_VIterator operator++(int unused) {
 					T_VIterator tmp(m_pT, m_ID);
-					++m_iter;
+					++(this->m_iter);
 					return tmp;
 				};
 

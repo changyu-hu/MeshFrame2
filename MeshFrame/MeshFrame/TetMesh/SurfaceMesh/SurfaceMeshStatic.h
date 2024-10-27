@@ -1,8 +1,7 @@
 #ifndef _TMESHLIB_SURFACE_MESH_H_
 #define _TMESHLIB_SURFACE_MESH_H_
 
-//#include "../TIterators.h"
-
+#include "../../TriMesh/BaseMesh.h"
 namespace MF
 {
 	namespace TetMesh
@@ -23,7 +22,7 @@ namespace MF
 
 				for (int iV = 0; iV < _surfaceVerts.size(); iV++)
 				{
-					VertexType* currentVertex = createVertexWithId(_surfaceVerts[iV]->id());
+					VertexType* currentVertex = this->createVertexWithId(_surfaceVerts[iV]->id());
 					currentVertex->setTetMeshVertPtr(_surfaceVerts[iV]);
 				}
 
@@ -38,26 +37,26 @@ namespace MF
 					//	fV++;
 					//}
 
-	 				typename CTetMeshStatic::HEPtr pHE = (CTetMeshStatic::HEPtr)_surfaceFaces[iF]->half_edge();
+	 				typename CTetMeshStatic::HEPtr pHE = _surfaceFaces[iF]->half_edge();
 					for (int fV = 0; fV < 3; ++fV) {
 						int vId = pHE->source()->id();
-						currentVs[fV] = mVMap[vId];
+						currentVs[fV] = this->mVMap[vId];
 
-						pHE = (CTetMeshStatic::HEPtr)pHE->next();
+						pHE = pHE->next();
 					}
 
-					FaceType* currentFace = createFace(currentVs, iF);
+					FaceType* currentFace = this->createFace(currentVs, iF);
 					currentFace->setTetMeshHalfFacePtr(_surfaceFaces[iF]);
 
-					mFIdMap.insert(FIdMapPair(iF, currentFace));
+					this->mFIdMap.insert(std::make_pair(iF, currentFace));
 				}
 
 				/*Label boundary edges*/
-				for (int i = 0; i < mEContainer.getCurrentIndex(); ++i)
+				for (int i = 0; i < this->mEContainer.getCurrentIndex(); ++i)
 				{
-					EdgeType* currentE = mEContainer.getPointer(i);
-					HalfEdgeType* currentHE0 = edgeHalfedge(currentE, 0);
-					HalfEdgeType* currentHE1 = edgeHalfedge(currentE, 1);
+					EdgeType* currentE = this->mEContainer.getPointer(i);
+					HalfEdgeType* currentHE0 = this->edgeHalfedge(currentE, 0);
+					HalfEdgeType* currentHE1 = this->edgeHalfedge(currentE, 1);
 					if (currentHE1 == NULL)
 					{
 						currentHE0->source()->boundary() = true;
@@ -69,10 +68,10 @@ namespace MF
 				
 				std::vector<VertexType*> isolatedVertexs;
 				//#pragma omp parallel for
-				for (int i = 0; i < mVContainer.getCurrentIndex(); ++i)
+				for (int i = 0; i < this->mVContainer.getCurrentIndex(); ++i)
 				{
-					VertexType* currentV = mVContainer.getPointer(i);
-					if (mVContainer.hasBeenDeleted(currentV->index()) == false)
+					VertexType* currentV = this->mVContainer.getPointer(i);
+					if (this->mVContainer.hasBeenDeleted(currentV->index()) == false)
 					{
 						if (currentV->halfedge() != NULL) continue;
 						isolatedVertexs.push_back(currentV);
@@ -85,17 +84,17 @@ namespace MF
 				*	Arrange the boundary half_edge of boundary vertices, to make its halfedge
 				*	to be the most ccw in half_edge
 				*/
-				for (int i = 0; i < mVContainer.getCurrentIndex(); ++i)
+				for (int i = 0; i < this->mVContainer.getCurrentIndex(); ++i)
 				{
-					VertexType* currentV = mVContainer.getPointer(i);
-					if (mVContainer.hasBeenDeleted(currentV->index()) == false)
+					VertexType* currentV = this->mVContainer.getPointer(i);
+					if (this->mVContainer.hasBeenDeleted(currentV->index()) == false)
 					{
 						if (!currentV->boundary()) continue;
-						HalfEdgeType* currentHE = vertexMostCcwInHalfEdge(currentV);
+						HalfEdgeType* currentHE = this->vertexMostCcwInHalfEdge(currentV);
 						currentV->halfedge() = currentHE;
 					}
 				}
-				mVMap.clear();
+				this->mVMap.clear();
 			}
 
 		private:

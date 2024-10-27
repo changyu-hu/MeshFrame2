@@ -27,9 +27,9 @@
 
 #elif __linux__
 #define  SAFE_SPRINT snprintf
-#define  SAFE_STRCAT strncat
+#define  SAFE_STRCAT(dst, src) strncat(dst, src, MAX_LINE_SIZE)
 #define  SAFE_FOPEN fopen
-#define	 SAFE_STRCPY strncpy
+#define	 SAFE_STRCPY(dst, src) strncpy(dst, src, MAX_LINE_SIZE)
 #elif __unix__ 
 #define  SAFE_SPRINT snprintf
 #define  SAFE_STRCAT strncat

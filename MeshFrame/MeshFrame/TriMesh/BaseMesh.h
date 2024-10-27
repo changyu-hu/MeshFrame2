@@ -51,7 +51,7 @@ namespace MF {
 	* \tparam FaceType     face     class, derived from MeshLib::CFace     class
 	* \tparam HalfEdgeType halfedge class, derived from MeshLib::CHalfEdge class
 	*/
-	template<typename DType, typename VertexType, typename EdgeType, typename FaceType, typename HalfEdgeType>
+	template<typename Dtype, typename VertexType, typename EdgeType, typename FaceType, typename HalfEdgeType>
 	class CMeshBase
 	{
 	public:
@@ -64,14 +64,14 @@ namespace MF {
 		typedef MemoryPool<EdgeType>				EContainer;
 		typedef MemoryPool<HalfEdgeType>			HEContainer;
 
-		typedef TVec3<DType> Vec3;
-		typedef TVec2<DType> Vec2;
+		typedef TVec3<Dtype> Vec3;
+		typedef TVec2<Dtype> Vec2;
 
 		// pointer to Vertices, Halfedges, Edges, Face and Solid
-		typedef CMeshBase<DType, VertexType, EdgeType, FaceType, HalfEdgeType>* Ptr;
-		typedef std::shared_ptr<CMeshBase<DType, VertexType, EdgeType, FaceType, HalfEdgeType>> SharedPtr;
+		typedef CMeshBase<Dtype, VertexType, EdgeType, FaceType, HalfEdgeType>* Ptr;
+		typedef std::shared_ptr<CMeshBase<Dtype, VertexType, EdgeType, FaceType, HalfEdgeType>> SharedPtr;
 
-		typedef DType DType;
+		typedef Dtype DType;
 		typedef VertexType   * VPtr;
 		typedef EdgeType	 * EPtr;
 		typedef FaceType	 * FPtr;
